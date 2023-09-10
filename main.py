@@ -9,17 +9,14 @@ CORS(app)
 api = Api(app)  # Flask 객체에 Api 객체 등록
 
 
-# curl -X POST -H "User-Agent:linux" -H "Content-Type:application/json" -d "{\"max_count\":\"3\"}" 127.0.0.1:(
-# 5000/api/service/news/request
-
+# curl -X POST -H "User-Agent:linux" -H "Content-Type:application/json" -d "{\"max_count\":\"3\"}" 127.0.0.1:5000/api/service/news/request
+# curl -X GET "127.0.0.1:5000/api/others"
 
 serviceRepo = ServiceRepo()
 serviceRepo.ready()
 
-
 @api.route('/api/service/news/request')
 class NewsServer(Resource):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -29,6 +26,13 @@ class NewsServer(Resource):
         # self.serviceRepo.update()
         return make_response(serviceRepo.getNewsJson(maxCount), 200)
 
+@api.route('/api/others')
+class NewsServer(Resource):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def get(self):
+        return make_response(serviceRepo.getOtherJson(10), 200)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
