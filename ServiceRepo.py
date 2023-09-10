@@ -8,9 +8,12 @@ class ServiceRepo:
     serviceList = []
     serviceSource = OpenNewsSource()
     mkFeedList = []
-    mkFeedSource = FeedNewsSource("https://www.hankyung.com/feed/finance")
+    mkFeedSource = FeedNewsSource("https://www.hankyung.com/feed/all-news")
+    mkFeedFinacneList = []
+    mkFeedFinanceSource = FeedNewsSource("https://www.hankyung.com/feed/finance")
 
-    def getNewsJson(self, count):
+
+    def getNewsJson(self, maxCount, keyList):
         result = []
         for service in self.serviceList:
             serviceJson = {'http': service.httpUri,
@@ -22,9 +25,21 @@ class ServiceRepo:
             result.append(serviceJson)
         return jsonify(result)
 
-    def getOtherJson(self, count):
+    def getMKAll(self, count):
         result = []
         for service in self.mkFeedList:
+            serviceJson = {'http': service.httpUri,
+                           'thumbnail': service.thumbnailUri,
+                           'title': service.title,
+                           'description': service.description,
+                           'datetime': service.datetime,
+                           'fromSource': service.fromSource}
+            result.append(serviceJson)
+        return jsonify(result)
+
+    def getMKFinance(self, count):
+        result = []
+        for service in self.mkFeedFinacneList:
             serviceJson = {'http': service.httpUri,
                            'thumbnail': service.thumbnailUri,
                            'title': service.title,
@@ -43,3 +58,4 @@ class ServiceRepo:
         print("update")
         self.serviceList = self.serviceSource.request()
         self.mkFeedList = self.mkFeedSource.request()
+        self.mkFeedFinacneList = self.mkFeedFinanceSource.request()

@@ -31,17 +31,26 @@ class NewsServer(Resource):
 
     def post(self):
         maxCount = request.json.get("max_count")
-        idList = request.json.get("provider_id_list")
+        keyList = request.json.get("provider_key_list")
         # self.serviceRepo.update()
-        return make_response(serviceRepo.getNewsJson(maxCount), 200)
+        return make_response(serviceRepo.getNewsJson(maxCount,keyList), 200)
 
-@api.route('/api/others')
+@api.route('/api/others/mk_all')
 class NewsServer(Resource):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     def get(self):
-        return make_response(serviceRepo.getOtherJson(10), 200)
+        return make_response(serviceRepo.getMKAll(10), 200)
+
+
+@api.route('/api/others/mk_finance')
+class NewsServer(Resource):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def get(self):
+        return make_response(serviceRepo.getMKFinance(10), 200)
 # Admin
 @api.route('/admin')
 class AdminServer(Resource):

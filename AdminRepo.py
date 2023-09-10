@@ -6,8 +6,9 @@ class AdminRepo:
 
     def __init__(self):
         self.data = [
-            {'0': 'OpenNews'},
-            {'1': '한경닷컴'},
+            {'key': 'opennews', 'title': 'OpenNews', 'url': 'remote', 'valid': '60'},
+            {'key': 'hd_all', 'title': '한경 닷컴', 'url': 'local', 'valid': '1'},
+            {'key': 'hd_finance', 'title': '한경 닷컴(증권)', 'url': 'local', 'valid': '1'},
         ]
 
     def post(self, json):
