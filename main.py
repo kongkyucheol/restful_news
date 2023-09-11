@@ -64,6 +64,9 @@ class AdminServer(Resource):
 
 
     def get(self):
-        return make_response(adminRepo.get(), 200)
+        response = make_response(adminRepo.get(), 200)
+        print(response.json)
+        return response
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
