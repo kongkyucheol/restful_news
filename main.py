@@ -35,6 +35,10 @@ class NewsServer(Resource):
         # self.serviceRepo.update()
         return make_response(serviceRepo.getNewsJson(maxCount,keyList), 200)
 
+    def get(self):
+        return make_response(serviceRepo.getNewsJson(10,None), 200)
+
+
 @api.route('/api/others/mk_all')
 class NewsServer(Resource):
     def __init__(self, *args, **kwargs):
