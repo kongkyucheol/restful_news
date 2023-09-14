@@ -55,6 +55,18 @@ class NewsServer(Resource):
 
     def get(self):
         return make_response(serviceRepo.getMKFinance(10), 200)
+
+@api.route('/api/others')
+class NewsServer(Resource):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def get(self):
+        parameter_dict = request.args.to_dict()
+        if len(parameter_dict) == 0:
+            return 'No parameter'
+        return make_response(serviceRepo.getNews(parameter_dict['url']),200)
+
 # Admin
 @api.route('/admin')
 class AdminServer(Resource):

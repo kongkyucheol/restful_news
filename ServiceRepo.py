@@ -49,6 +49,18 @@ class ServiceRepo:
             result.append(serviceJson)
         return jsonify(result)
 
+    def getNews(self, url):
+        result = []
+        feedNewsList = FeedNewsSource(url).request()
+        for service in feedNewsList:
+            serviceJson = {'http': service.httpUri,
+                           'thumbnail': service.thumbnailUri,
+                           'title': service.title,
+                           'description': service.description,
+                           'datetime': service.datetime,
+                           'fromSource': service.fromSource}
+            result.append(serviceJson)
+        return jsonify(result)
 
     def ready(self):
         print("ready")
