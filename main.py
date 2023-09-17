@@ -74,7 +74,6 @@ class AdminServer(Resource):
         super().__init__(*args, **kwargs)
 
     def post(self):
-        print(request.json)
         adminRepo.post(request.json)
         return make_response(adminRepo.get(), 200)
 
